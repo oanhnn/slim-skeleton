@@ -1,0 +1,40 @@
+#===============================================================================
+# Security
+#===============================================================================
+# Don't allow access `.htaccess`, `.htpasswd` and `.htgroup` file
+<Files ~ "^\.(htaccess|htpasswd|htgroup)$">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Don't allow show list files of directory
+Options -Indexes
+
+# Setting Basic Auth to protected directory
+#AuthName "Please enter your ID and password"
+#AuthType Basic
+#AuthUserFile "../app/config/.htpasswd"
+#AuthGroupFile "../app/config/.htgroup"
+#Require valid-user
+#Order Deny,Allow
+
+#===============================================================================
+# Rewrite Mode
+#===============================================================================
+RewriteEngine On
+
+# Some hosts may require you to use the `RewriteBase` directive.
+# If you need to use the `RewriteBase` directive, it should be the
+# absolute physical path to the directory that contains this htaccess file.
+#
+#RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
+
+#===============================================================================
+# Environment variables
+#===============================================================================
+# Comment below line for production mode
+SetEnv APP_ENV development

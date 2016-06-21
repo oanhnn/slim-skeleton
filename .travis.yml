@@ -1,0 +1,30 @@
+language: php
+
+php:
+  - 5.5
+  - 5.6
+  - 7.0
+  - hhvm
+
+sudo: false
+
+addons:
+  mariadb: '10.1'
+
+before_install:
+  - composer self-update
+
+install:
+  - composer install
+  - composer require satooshi/php-coveralls '~1.0'
+
+before_script:
+  - composer run-script post-create-project-cmd
+  - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS testdb;'
+
+script:
+  - php vendor/bin/phpcs
+  - php vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+  - php vendor/bin/coveralls -v

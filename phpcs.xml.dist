@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ruleset name="Slim application coding standard">
+    <description>Slim application coding standard</description>
+    <!-- Paths to check -->
+    <file>src</file>
+    <file>tests</file>
+    <file>app/config</file>
+
+    <!-- display progress -->
+    <arg value="p"/>
+    <!-- use colors in output -->
+    <arg name="colors"/>
+
+    <!-- inherit rules from: -->
+    <rule ref="PSR2"/>
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <!--<rule ref="Squiz.Commenting.FileComment"/>-->
+    <rule ref="Generic.Commenting.Todo" />
+</ruleset>
