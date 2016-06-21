@@ -17,9 +17,9 @@ return [
         'displayErrorDetails' => false,
         // View settings
         'view' => [
-            'template_path' => APP_PATH.'/views',
+            'template_path' => APP_PATH . '/templates',
             'twig' => [
-                'cache' => ROOT_PATH.'/tmp/cache/twig',
+                'cache' => ROOT_PATH . '/tmp/cache/twig',
                 'debug' => true,
                 'auto_reload' => true,
             ],
@@ -27,7 +27,7 @@ return [
         // monolog settings
         'logger' => [
             'name' => 'app',
-            'path' => ROOT_PATH.'/tmp/logs/app.log',
+            'path' => ROOT_PATH . '/tmp/logs/app.log',
         ],
         'database' => [
             'meta' => [
@@ -39,10 +39,10 @@ return [
                 'cache' => null,
             ],
             'connection' => [
-                'driver'   => 'pdo_mysql',
-                'host'     => 'localhost',
-                'dbname'   => 'testdb',
-                'user'     => 'root',
+                'driver' => 'pdo_mysql',
+                'host' => 'localhost',
+                'dbname' => 'testdb',
+                'user' => 'root',
                 'password' => '',
             ]
         ],

@@ -10,20 +10,11 @@
 
 namespace App\Tests;
 
-class ExampleTest extends \PHPUnit_Framework_TestCase
+/**
+ * An example test class
+ */
+class ExampleTest extends TestCase
 {
-
-    use \App\Tests\LoadFixturesAwareTrait;
-    use \App\Tests\IntegrationTestAwareTrait;
-
-    /**
-     * Setting up before test
-     */
-    protected function setUp()
-    {
-        $this->initialize();
-    }
-
     /**
      * A basic functional test example.
      */
@@ -36,6 +27,9 @@ class ExampleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('text/html; charset=UTF-8', $res->getHeaderLine('Content-Type'));
     }
 
+    /**
+     * A basic functional test example with database.
+     */
     public function testBasicExampleWithDb()
     {
         $this->loadFixtures(['orders']);

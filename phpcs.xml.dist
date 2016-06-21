@@ -4,7 +4,7 @@
     <!-- Paths to check -->
     <file>src</file>
     <file>tests</file>
-    <file>app/config</file>
+    <!--<file>app/config</file>-->
 
     <!-- display progress -->
     <arg value="p"/>

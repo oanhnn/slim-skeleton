@@ -91,7 +91,12 @@ class DigestAuthentication extends BasicAuthentication
         ];
         $data = [];
 
-        preg_match_all('@('.implode('|', array_keys($needed_parts)).')=(?:([\'"])([^\2]+?)\2|([^\s,]+))@', substr($header, 7), $matches, PREG_SET_ORDER);
+        preg_match_all(
+            '@('.implode('|', array_keys($needed_parts)).')=(?:([\'"])([^\2]+?)\2|([^\s,]+))@',
+            substr($header, 7),
+            $matches,
+            PREG_SET_ORDER
+        );
         if ($matches) {
             foreach ($matches as $m) {
                 $data[$m[1]] = $m[3] ? $m[3] : $m[4];

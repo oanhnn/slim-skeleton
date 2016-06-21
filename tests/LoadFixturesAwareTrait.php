@@ -13,18 +13,13 @@ namespace App\Tests;
 trait LoadFixturesAwareTrait
 {
     /**
-     * @var \Slim\App
-     */
-    protected $app;
-
-    /**
      * Load fixtures
      *
      * @param array $tables
      */
     protected function loadFixtures($tables = [])
     {
-        $connection = $this->app->getContainer()->get('database');
+        $connection = self::getApp()->getContainer()->get('database');
         if (empty($connection)) {
             throw new \RuntimeException('DoctrineDBALServiceProvider registration required');
         }
@@ -33,9 +28,9 @@ trait LoadFixturesAwareTrait
             $filePath = __DIR__ . '/fixtures/' . $table . '.sql';
 
             if (!file_exists($filePath)) {
-                throw new \InvalidArgumentException(sprintf("SQL file '%s' does not exist.", $filePath));
+                throw new \InvalidArgumentException(sprintf("SQL file '%s' doesn't exist.", $filePath));
             } elseif (!is_readable($filePath)) {
-                throw new \InvalidArgumentException(sprintf("SQL file '%s' does not have read permissions.", $filePath));
+                throw new \InvalidArgumentException(sprintf("SQL file '%s' hasn't read permissions.", $filePath));
             }
 
             $sql = file_get_contents($filePath);

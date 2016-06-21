@@ -18,16 +18,11 @@ use Slim\Http\Uri;
 
 /**
  * Trait integration test aware
+ *
+ * @method \Slim\App getApp()
  */
 trait IntegrationTestAwareTrait
 {
-    /**
-     * Slim app
-     *
-     * @var \Slim\App
-     */
-    protected $app;
-
     /**
      * Call the given URI and return the Response.
      *
@@ -63,18 +58,6 @@ trait IntegrationTestAwareTrait
 
         $request = new Request($method, $uri, $headers, $cookies, $servers, $body);
 
-        $this->app->getContainer()['request'] = $request;
-
-        return $this->app->run(true);
-    }
-
-    /**
-     * Initialize application
-     */
-    protected function initialize()
-    {
-        if (null === $this->app) {
-            $this->app = require dirname(__DIR__) . '/app/config/bootstrap.php';
-        }
+        return self::getApp()->process($request, self::getApp()->getContainer()->get('response'));
     }
 }
