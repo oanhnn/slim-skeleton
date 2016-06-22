@@ -21,34 +21,30 @@ use Pimple\Container;
 class DoctrineDBALServiceProvider extends AbstractServiceProvider
 {
     /**
-     * Default config
+     * Get default settings
      *
-     * @var array
+     * @return array
      */
-    protected $defaults = [
-        'connection' => [
-            'driver'   => 'pdo_mysql',
-            'host'     => 'localhost',
-            'dbname'   => 'your-db',
-            'user'     => 'your-user-name',
-            'password' => 'your-password',
-        ],
-        'meta' => [
-            'entity_path' => [
-                ROOT_PATH . '/src/Models/Entity'
+    public static function getDefaultSettings()
+    {
+        return [
+            'connection' => [
+                'driver'   => 'pdo_mysql',
+                'host'     => 'localhost',
+                'dbname'   => 'your-db',
+                'user'     => 'your-user-name',
+                'password' => 'your-password',
             ],
-            'auto_generate_proxies' => true,
-            'proxy_dir' => ROOT_PATH . '/tmp/cache/proxies',
-            'cache' => null,
-        ],
-    ];
-
-    /**
-     * Config key for service
-     *
-     * @var string
-     */
-    protected $key = 'database';
+            'meta' => [
+                'entity_path' => [
+                    ROOT_PATH . '/src/Models/Entity'
+                ],
+                'auto_generate_proxies' => true,
+                'proxy_dir' => CACHE_PATH . '/proxies',
+                'cache' => null,
+            ],
+        ];
+    }
 
     /**
      * Register log service provider.
@@ -57,10 +53,9 @@ class DoctrineDBALServiceProvider extends AbstractServiceProvider
      */
     public function register(Container $container)
     {
-        $doctrine = $this->getConfig($container['settings']);
+        $settings = array_merge([], self::getDefaultSettings(), $container['settings']['database']);
         $config = new Configuration();
-        $params = $doctrine['connection'];
 
-        $container['database'] = DriverManager::getConnection($params, $config);
+        $container['database'] = DriverManager::getConnection($settings['connection'], $config);
     }
 }

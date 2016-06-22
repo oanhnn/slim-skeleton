@@ -1,6 +1,7 @@
 # User specific & automatically generated files #
 #################################################
 /app/config/app.php
+/deploy.php
 /phpunit.xml
 /phpcs.xml
 /vendor

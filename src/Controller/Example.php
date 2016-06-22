@@ -30,7 +30,7 @@ class Example extends Base
      */
     public function index(Request $request, Response $response, $args)
     {
-        $this->render($response, 'welcome.html.php');
+        $this->render($response, 'welcome.html');
     }
 
     /**
@@ -51,6 +51,6 @@ class Example extends Base
 
         $rows = $stmt->fetchAll();
 
-        $this->render($response, 'list_orders.html.php', ['orders' => $rows]);
+        $this->render($response, 'list_orders.html', ['orders' => $rows]);
     }
 }

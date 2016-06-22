@@ -21,25 +21,22 @@ use Slim\Views\TwigExtension;
 class TwigViewServiceProvider extends AbstractServiceProvider
 {
     /**
-     * Default config
+     * Get default settings
      *
-     * @var array
+     * @return array
      */
-    protected $defaults = [
-        'template_path' => APP_PATH . '/views',
-        'twig' => [
-            'cache' => ROOT_PATH . '/tmp/cache/twig',
-            'debug' => false,
-            'auto_reload' => true,
-        ],
-    ];
-
-    /**
-     * Config key for service
-     *
-     * @var string
-     */
-    protected $key = 'view';
+    public static function getDefaultSettings()
+    {
+        return [
+            'engine' => 'twig',
+            'template_path' => VIEW_PATH,
+            'config' => [
+                'cache' => CACHE_PATH . '/twig',
+                'debug' => true,
+                'auto_reload' => true,
+            ],
+        ];
+    }
 
     /**
      * Register Twig Service Provider.
@@ -48,27 +45,22 @@ class TwigViewServiceProvider extends AbstractServiceProvider
      */
     public function register(Container $container)
     {
-        $config = $this->getConfig($container['settings']);
+        $settings = array_merge([], self::getDefaultSettings(), $container['settings']['renderer']);
 
-        $container['view'] = function (Container $container) use ($config) {
-            $engine = new Twig($config['template_path'], $config['twig']);
+        $templatePath = rtrim($settings['template_path'], '/\\') . DIRECTORY_SEPARATOR;
+        $config = $settings['config'];
+
+        $container['renderer'] = function (Container $c) use ($templatePath, $config) {
+            $renderer = new Twig($templatePath, $config);
             // Add extensions
-            $engine->addExtension(new TwigExtension($container->get('router'), $container->get('request')->getUri()));
-            $engine->addExtension(new \Twig_Extension_Debug());
+            $renderer->addExtension(new TwigExtension($c['router'], $c['request']->getUri()));
+            $renderer->addExtension(new \Twig_Extension_Debug());
 
-            return $engine;
+            return $renderer;
         };
-    }
 
-    /**
-     * @param \Slim\Collection $settings
-     * @return array
-     */
-    protected function getConfig($settings)
-    {
-        $config = parent::getConfig($settings);
-        $config['template_path'] = rtrim($config['template_path'], '/\\') . DIRECTORY_SEPARATOR;
-
-        return $config;
+        $container['templateFinder'] = $container->protect(function ($template) {
+            return $template . '.twig';
+        });
     }
 }

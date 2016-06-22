@@ -17,7 +17,7 @@ use \Composer\IO\IOInterface;
  * Provides installation hooks for when this application is installed via
  * composer. Customize this class to suit your needs.
  */
-class Installer
+class Scripts
 {
     /**
      * Path to config directory
@@ -49,6 +49,16 @@ class Installer
         static::setSecuritySalt($rootDir, $io);
     }
 
+//    public static function doTest();
+//    public static function deploy();
+//    public static function startServer();
+//    public static function stopServer();
+//
+//    public static function runUnitTest();
+//    public static function checkCodingStyle();
+//    public static function installGulp();
+//    public static function installDeployer();
+
     /**
      * Create the application's config file if it does not exist.
      *
@@ -58,6 +68,9 @@ class Installer
      */
     protected static function createAppConfig($dir, $io)
     {
+        $io = $event->getIO();
+        $rootDir = dirname(dirname(__DIR__));
+
         $io->write("=> Create the application's config file");
 
         $appConfig     = $dir . self::$configDir . '/app.php';
@@ -85,6 +98,9 @@ class Installer
      */
     protected static function setWritableDirs($dir, $io)
     {
+        $io = $event->getIO();
+        $rootDir = dirname(dirname(__DIR__));
+
         $io->write("=> Set globally writable permissions");
 
         $changedDirs = [];
@@ -111,6 +127,9 @@ class Installer
      */
     protected static function setSecuritySalt($dir, $io)
     {
+        $io = $event->getIO();
+        $rootDir = dirname(dirname(__DIR__));
+
         $io->write("=> Set the security.salt value");
 
         $config  = $dir . self::$configDir . '/app.php';
@@ -163,5 +182,17 @@ class Installer
         }
 
         return $changedDirs;
+    }
+
+    /**
+     *
+     * @param type $cmd
+     * @return type
+     */
+    protected function runCommand($cmd)
+    {
+        exec(escapeshellcmd($cmd), $output, $code);
+
+        return [$code, $output];
     }
 }

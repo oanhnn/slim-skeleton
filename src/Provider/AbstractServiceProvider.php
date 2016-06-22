@@ -19,28 +19,13 @@ use Pimple\Container;
 abstract class AbstractServiceProvider implements ServiceProviderInterface
 {
     /**
-     * Default config of service
+     * Get default settings
      *
-     * @var array
-     */
-    protected $defaults = [];
-
-    /**
-     * Config key of service
-     *
-     * @var string
-     */
-    protected $key = 'service_name';
-
-    /**
-     * Get config of service
-     *
-     * @param \Slim\Collection $settings
      * @return array
      */
-    protected function getConfig($settings)
+    public static function getDefaultSettings()
     {
-        return array_merge($this->defaults, $settings->get($this->key, []));
+        return [];
     }
 
     /**

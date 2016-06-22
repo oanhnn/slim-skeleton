@@ -1,0 +1,23 @@
+<?php
+/**
+ * Script for Deployer
+ */
+// Require composer recipe
+require 'recipe/composer.php';
+
+// Set parameters
+set('repository', 'git@github.com:oanhnn/slim-skeleton.git');
+set('keep_releases', 2);
+set('shared_dirs', ['tmp']);
+set('shared_files', ['app/config/app.php']);
+set('writable_dirs', ['tmp']);
+set('writable_use_sudo', false); // Using sudo in writable commands?
+
+// Server's config
+server('dev-svr', '10.10.10.10', 22)
+    ->user('vagrant')
+    ->forwardAgent()
+    ->stage(['dev'])
+    ->env('deploy_path', '/var/www/apps/app-name')
+    ->env('branch', '3.x')
+;

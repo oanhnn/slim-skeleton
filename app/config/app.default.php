@@ -10,32 +10,31 @@
 
 return [
     'settings' => [
-        'httpVersion' => '1.1',
-        'responseChunkSize' => 4096,
-        'outputBuffering' => 'append',
-        'determineRouteBeforeAppMiddleware' => false,
-        'displayErrorDetails' => false,
-        // View settings
-        'view' => [
-            'template_path' => APP_PATH . '/templates',
-            'twig' => [
-                'cache' => ROOT_PATH . '/tmp/cache/twig',
-                'debug' => true,
-                'auto_reload' => true,
-            ],
+        // Application settings
+        'displayErrorDetails' => true,
+
+        // Renderer settings
+        'renderer' => [
+            'engine' => 'php',
+            'template_path' => VIEW_PATH,
+            'config' => [],
         ],
-        // monolog settings
+
+        // Monolog settings
         'logger' => [
             'name' => 'app',
-            'path' => ROOT_PATH . '/tmp/logs/app.log',
+            'path' => LOG_PATH . '/app.log',
+            'level' => Monolog\Logger::DEBUG,
         ],
+
+        // DoctrineDBAL settings
         'database' => [
             'meta' => [
                 'entity_path' => [
-                    'app/src/Models/Entity'
+                    'src/Model/Entity'
                 ],
                 'auto_generate_proxies' => true,
-                'proxy_dir' => ROOT_PATH . '/tmp/cache/proxies',
+                'proxy_dir' => CACHE_PATH . '/proxies',
                 'cache' => null,
             ],
             'connection' => [

@@ -11,22 +11,23 @@
 namespace App\Provider;
 
 use Pimple\Container;
-use Slim\HttpCache\CacheProvider;
+use Slim\Flash\Messages;
 
 /**
- * Http cache service provider
- * Require slim/http-cache ^0.3.0
+ * Flash message service provider
+ * Require slim/flash ^0.1.0
  */
-class HttpCacheServiceProvider extends AbstractServiceProvider
+class FlashMessageServiceProvider extends AbstractServiceProvider
 {
     /**
-     * Register Http Cache Service Provider.
+     * Register Flash Message Service Provider.
      *
      * @param Container $container
      */
     public function register(Container $container)
     {
-        $provider = new CacheProvider();
-        $provider->register($container);
+        $container['flash'] = function () {
+            return new Messages();
+        };
     }
 }

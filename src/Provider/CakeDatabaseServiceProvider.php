@@ -19,29 +19,25 @@ use Pimple\Container;
 class CakeDatabaseServiceProvider extends AbstractServiceProvider
 {
     /**
-     * Default config
+     * Get default settings
      *
-     * @var array
+     * @return array
      */
-    protected $defaults = [
-        'connection' => [
-            'driver'     => 'Cake\Database\Driver\Mysql',
-            'host'       => 'localhost',
-            'database'   => 'your-db',
-            'username'   => 'your-user-name',
-            'password'   => 'your-password',
-            'encoding'   => 'utf8',
-            'timezone'   => 'UTC',
-            'persistent' => false,
-        ],
-    ];
-
-    /**
-     * Config key for service
-     *
-     * @var string
-     */
-    protected $key = 'database';
+    public static function getDefaultSettings()
+    {
+        return [
+            'connection' => [
+                'driver'     => 'Cake\Database\Driver\Mysql',
+                'host'       => 'localhost',
+                'database'   => 'your-db',
+                'username'   => 'your-user-name',
+                'password'   => 'your-password',
+                'encoding'   => 'utf8',
+                'timezone'   => 'UTC',
+                'persistent' => false,
+            ],
+        ];
+    }
 
     /**
      * Register log service provider.
@@ -50,10 +46,10 @@ class CakeDatabaseServiceProvider extends AbstractServiceProvider
      */
     public function register(Container $container)
     {
-        $config = $this->getConfig($container['settings']);
+        $settings = array_merge([], self::getDefaultSettings(), $container['settings']['database']);
 
-        $container['database'] = function () use ($config) {
-            return new \Cake\Database\Connection($config['connection']);
+        $container['database'] = function () use ($settings) {
+            return new \Cake\Database\Connection($settings['connection']);
         };
     }
 }

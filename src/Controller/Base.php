@@ -36,17 +36,17 @@ abstract class Base
     /**
      * Render a view.
      *
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param string                              $view
-     * @param array                               $data
-     *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @param ResponseInterface $response
+     * @param string            $view
+     * @param array             $data
+     * @return ResponseInterface
      */
     protected function render(ResponseInterface $response, $view, $data = [])
     {
-        /* @var $engine \Slim\Views\PhpRenderer */
-        $engine = $this->container->get('view');
+        /* @var $renderer \Slim\Views\PhpRenderer */
+        $renderer = $this->container->get('renderer');
+        $templateFinder = $this->container->get('templateFinder');
 
-        return $engine->render($response, $view, $data);
+        return $renderer->render($response, $templateFinder($view), $data);
     }
 }

@@ -39,6 +39,7 @@
     "slim/twig-view": "Required to use Twig view service provider (^2.0).",
     "slim/http-cache": "Required to use http cache service provider (^0.3.0).",
     "slim/csrf": "Required to protect CSRF attack by csrf middleware (^0.4.0).",
+    "slim/flash": "Required to use flash message service provider (^0.1.0)",
     "doctrine/dbal": "Required to use Doctrine DBAL service provider (^2.5).",
     "cakephp/database": "Required to use CakePHP Database service provider (^3.1)."
   },
@@ -47,11 +48,16 @@
   },
   "scripts": {
     "post-create-project-cmd": [
-      "App\\Console\\Installer::postCreateProject"
+      "App\\Console\\Scripts::postCreateProject"
     ],
     "test": [
       "./vendor/bin/phpcs",
       "./vendor/bin/phpunit"
-    ]
+    ],
+    "deploy": "./vendor/bin/dep deploy",
+    "install-gulp": "npm install",
+    "install-deployer": "@composer require deployer/deployer:^3.3 --dev",
+    "gulp-run": "node_modules/.bin/gulp",
+    "server": "php -S 0.0.0.0:8888 -t public public/index.php > /dev/null 2>&1 &"
   }
 }

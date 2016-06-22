@@ -44,4 +44,6 @@
 #/phpunit.xml        export-ignore
 #/phpcs.xml.dist     export-ignore
 #/phpcs.xml          export-ignore
+#/deploy.php.dist    export-ignore
+#/deploy.php         export-ignore
 #/CHANGELOG.md       export-ignore

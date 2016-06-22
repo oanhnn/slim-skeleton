@@ -11,14 +11,22 @@
 namespace App\Provider;
 
 use Pimple\Container;
-use Slim\Views\PhpRenderer;
 
 /**
- * PHP view service provider
- * Require slim/php-view ^2.0
+ * View service provider
  */
-class PHPViewServiceProvider extends AbstractServiceProvider
+class ViewServiceProvider extends AbstractServiceProvider
 {
+    /**
+     * List engine class for renderer
+     *
+     * @var array
+     */
+    private $providerClass = [
+        'php' => 'PHPViewServiceProvider',
+        'twig' => 'TwigViewServiceProvider',
+    ];
+
     /**
      * Get default settings
      *
@@ -42,19 +50,13 @@ class PHPViewServiceProvider extends AbstractServiceProvider
     {
         $settings = array_merge([], self::getDefaultSettings(), $container['settings']['renderer']);
 
-        $templatePath = rtrim($settings['template_path'], '/\\') . DIRECTORY_SEPARATOR;
-        $config = $settings['config'];
+        $engine = strtolower($settings['engine']);
+        if (!isset($this->providerClass[$engine])) {
+            throw new \InvalidArgumentException('Invalid view engine');
+        }
 
-//        var_dump($settings); die();
-
-        $container['renderer'] = function (Container $c) use ($templatePath, $config) {
-            $renderer = new PhpRenderer($templatePath, $config);
-
-            return $renderer;
-        };
-
-        $container['templateFinder'] = $container->protect(function ($template) {
-            return $template . '.php';
-        });
+        $providerClass = __NAMESPACE__ . '\\' . $this->providerClass[$engine];
+        $provider = new $providerClass();
+        $provider->register($container);
     }
 }

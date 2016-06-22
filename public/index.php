@@ -22,7 +22,8 @@ if (php_sapi_name() === 'cli-server') {
 }
 
 /**
- * For debug only
+ * For debug mode only
+ * Please comment two lines if not debug mode
  */
 error_reporting(E_ALL);
 ini_set('display_errors', 1);

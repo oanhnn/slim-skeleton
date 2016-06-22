@@ -22,21 +22,18 @@ use Pimple\Container;
 class LogServiceProvider extends AbstractServiceProvider
 {
     /**
-     * Default config
+     * Get default settings
      *
-     * @var array
+     * @return array
      */
-    protected $defaults = [
-        'name' => 'app',
-        'path' => ROOT_PATH . '/tmp/logs/app.log',
-    ];
-
-    /**
-     * Config key for service
-     *
-     * @var string
-     */
-    protected $key = 'logger';
+    public static function getDefaultSettings()
+    {
+        return [
+            'name' => 'app',
+            'path' => LOG_PATH . '/app.log',
+            'level' => Logger::DEBUG,
+        ];
+    }
 
     /**
      * Register log service provider.
@@ -45,12 +42,11 @@ class LogServiceProvider extends AbstractServiceProvider
      */
     public function register(Container $container)
     {
-        $config = $this->getConfig($container['settings']);
-
-        $container['logger'] = function () use ($config) {
+        $config = array_merge([], self::getDefaultSettings(), $container['settings']['logger']);
+        $container['logger'] = function (Container $c) use ($config) {
             $logger = new Logger($config['name']);
             $logger->pushProcessor(new UidProcessor());
-            $logger->pushHandler(new StreamHandler($config['path'], Logger::DEBUG));
+            $logger->pushHandler(new StreamHandler($config['path'], $config['level']));
 
             return $logger;
         };
