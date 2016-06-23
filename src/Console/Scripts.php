@@ -68,9 +68,6 @@ class Scripts
      */
     protected static function createAppConfig($dir, $io)
     {
-        $io = $event->getIO();
-        $rootDir = dirname(dirname(__DIR__));
-
         $io->write("=> Create the application's config file");
 
         $appConfig     = $dir . self::$configDir . '/app.php';
@@ -98,9 +95,6 @@ class Scripts
      */
     protected static function setWritableDirs($dir, $io)
     {
-        $io = $event->getIO();
-        $rootDir = dirname(dirname(__DIR__));
-
         $io->write("=> Set globally writable permissions");
 
         $changedDirs = [];
@@ -127,9 +121,6 @@ class Scripts
      */
     protected static function setSecuritySalt($dir, $io)
     {
-        $io = $event->getIO();
-        $rootDir = dirname(dirname(__DIR__));
-
         $io->write("=> Set the security.salt value");
 
         $config  = $dir . self::$configDir . '/app.php';
