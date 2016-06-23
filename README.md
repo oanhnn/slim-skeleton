@@ -13,7 +13,7 @@ Main features
 ---
 - [x] Support logging follow [PSR-3][psr3] with [Monolog][monolog]
 - [x] Support template engines: PHP view, Twig (default PHP view)
-- [x] Support database accessing with [Doctrine DBAL][doc-dbal], [CakePHP Database][cakephp-db] (support MySql, Postgresql, SQLite, ...)
+- [x] Support database accessing with [Doctrine DBAL][doc-dbal], [CakePHP Database][cake-db] (support MySql, Postgresql, SQLite, ...)
 - [x] Support middlewares: Basic & Digest Authentication
 - [x] Support providers, easy to integrate with `slim/http-cache`, `slim/csrf`, `slim/flash`
 - [x] Support making database test and integration test with [PHPUnit][phpunit]
@@ -55,8 +55,8 @@ Using `composer` to create new project:
 $ composer create-project oanhnn/slim-skeleton path/to/project --prefer-dist
 ```
 
-#### Run PHP build-in server
-Run a build-in server on 0.0.0.0:8888
+#### Run PHP built-in server
+Run a built-in server on 0.0.0.0:8888
 ```shell
 $ php -S 0.0.0.0:8888 -t public public/index.php
 ```
