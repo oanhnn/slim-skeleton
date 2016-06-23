@@ -83,11 +83,12 @@ $ node_modules/.bin/gulp <task>
 ```
 
 #### Deploy project
-You can use Deployer to deploy project. Copy and edit server's information from 
-`deploy.php.dist` file to `deploy.php` file. After that, you can run:
+You can use Deployer to deploy project.   
+Copy and edit server's information from `deploy.php.dist` file to `deploy.php` file.   
+After that, you can run:
 
 ```shell
-$ composer require deployer/deployer:^3.3
+$ composer require deployer/deployer:^3.3.0 --dev
 $ ./vendor/bin/dep <stage>
 ```
 

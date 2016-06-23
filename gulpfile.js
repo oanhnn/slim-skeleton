@@ -20,9 +20,6 @@ var runSequence = require('run-sequence');
  */
 var BUILD_PATH = './public';
 var SOURCE_PATH = './app/assets';
-var STATIC_PATH = './app/static';
-var ENTRY_FILE = 'main.js';
-var OUTPUT_FILE = 'app.js';
 var DEBUG_MODE = false;
 
 // list paths of vendor files
@@ -45,7 +42,7 @@ gulp.task('copy:vendor', function () {
     };
 
     return gulp.src(srcList)
-            .pipe(gulp.dest(destPath));
+        .pipe(gulp.dest(destPath));
 });
 
 /**
@@ -53,10 +50,11 @@ gulp.task('copy:vendor', function () {
  */
 gulp.task('build:css', function () {
     return gulp.src(SOURCE_PATH + '/css/**/*.css')
-            .pipe(sourcemaps.init())
-            .pipe(cleanCSS({compatibility: 'ie8'}))
-            .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest(BUILD_PATH + '/css'));
+        .pipe(sourcemaps.init())
+        .pipe(cleanCSS({compatibility: 'ie8'}))
+        .pipe(concat('app1.min.css'))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(BUILD_PATH + '/css'));
 });
 
 /**
@@ -64,11 +62,23 @@ gulp.task('build:css', function () {
  */
 gulp.task('build:sass', function () {
     return gulp.src(SOURCE_PATH + '/sass/**/*.scss')
-            .pipe(sourcemaps.init())
-            .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-            .pipe(concat(OUTPUT_FILE))
-            .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest(BUILD_PATH + '/css'));
+        .pipe(sourcemaps.init())
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(concat('app2.min.css'))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(BUILD_PATH + '/css'));
+});
+
+/**
+ * Compile javascript files
+ */
+gulp.task('build:js', function () {
+    return gulp.src(SOURCE_PATH + '/js/**/*.js')
+        .pipe(sourcemaps.init())
+        .pipe(concat('app1.min.js'))
+        .pipe(uglify())
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(BUILD_PATH + '/js'));
 });
 
 /**
@@ -77,23 +87,25 @@ gulp.task('build:sass', function () {
  */
 gulp.task('build:es6', function () {
     return gulp.src(SOURCE_PATH + '/scripts/**/*.js')
-            .pipe(sourcemaps.init())
-            .pipe(babel({presets: ['es5']}))
-            .pipe(concat(OUTPUT_FILE))
-            .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest(BUILD_PATH + '/js'));
+        .pipe(sourcemaps.init())
+        .pipe(babel({presets: ['es2015']}))
+        .pipe(uglify())
+        .pipe(concat('app2.min.js'))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(BUILD_PATH + '/js'));
 });
 
 /**
  * Compile CoffeeScript files
  */
 gulp.task('build:coffee', function () {
-    return gulp.src(SOURCE_PATH + '/scripts/**/*.js')
-            .pipe(sourcemaps.init())
-            .pipe(coffee())
-            .pipe(concat(OUTPUT_FILE))
-            .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest(BUILD_PATH + '/js'));
+    return gulp.src(SOURCE_PATH + '/scripts/**/*.coffee')
+        .pipe(sourcemaps.init())
+        .pipe(coffee())
+        .pipe(uglify())
+        .pipe(concat('app3.min.js'))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(BUILD_PATH + '/js'));
 });
 
 gulp.task('clean', function (cb) {
@@ -105,10 +117,10 @@ gulp.task('clean', function (cb) {
 
 gulp.task('build', function (cb) {
     return runSequence(
-            ['clean'],
-            ['build:sass', 'build:css', 'build:js', 'build:es6', 'build:coffee', 'copy:vendor'],
-            cb
-            );
+        ['clean'],
+        ['build:sass', 'build:css', 'build:js', 'build:es6', 'build:coffee', 'copy:vendor'],
+        cb
+    );
 });
 
 gulp.task('watch', ['build'], function () {
