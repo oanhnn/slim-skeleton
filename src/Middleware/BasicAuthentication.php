@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file is part of `oanhnn/slim-skeleton` project.
  *

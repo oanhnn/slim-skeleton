@@ -34,6 +34,12 @@
 *.mo binary
 *.pdf binary
 *.phar binary
+# font files
+*.otf binary
+*.eot binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
 
 # Exclude unused files
 #/tests              export-ignore

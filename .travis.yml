@@ -1,10 +1,10 @@
 language: php
 
 php:
-  - 5.5
-  - 5.6
-  - 7.0
-  - hhvm
+- 5.5
+- 5.6
+- 7.0
+- hhvm
 
 sudo: false
 
@@ -12,19 +12,23 @@ addons:
   mariadb: '10.1'
 
 before_install:
-  - composer self-update
+- composer self-update
 
 install:
-  - composer install
-  - composer require satooshi/php-coveralls '~1.0'
+- composer install
+- composer require satooshi/php-coveralls '~1.0'
 
 before_script:
-  - composer run-script post-create-project-cmd
-  - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS testdb;'
+- composer run-script post-create-project-cmd
+- mysql -u root -e 'CREATE DATABASE IF NOT EXISTS testdb;'
 
 script:
-  - php vendor/bin/phpcs
-  - php vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+- php vendor/bin/phpcs
+- php vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 after_script:
-  - php vendor/bin/coveralls -v
+- php vendor/bin/coveralls -v
+
+notifications:
+  slack:
+    secure: Mwxe3mZ+zdsEtPv5G4Xca3v+2rQAvE6NrEAUbsJ06W1KvcIy4R5qxm2RhhrP9DRMs3C+W965jx8tCHaARZ+diDsHk2kBOO6G7+VyzhtK9p7ku7L2+4rOeGWIFFZhYqzi+SASZthftHjO1UnEoFF0w3uqhXrJVVTrVEgwo6IDsnVr9UMhIS5LETeLWrcZjVqYj2VoUNq+dSx68443kNbL/kFFMBu26rBQuol0toxxlllCGhRPynyLX1KkfRYTlOonlJ8ezb1SU+W/Bj1OKsZLYn3SmjooF8/9C1ZalA/6bpWakvyCIwaGDr9PTl2uJBKrT92byX/v3HQOPB7lQ3wO5qw6w14EYwRex3n7I55S79zkSqHvJVtMNOJFVf6oaJZOWhgCu59z7zRte0UxYNRnJz2ctW6e+4yKGIojmGzAUHl2ezhLbMRhJlGnxJDn7EqZBcpaAmdrdrcJJbpG/gHFCYVjpf3LHyshwWj11J4SnNw9CH3AWabdgU7qpVvOVekV2L0d/U+YNbkg1UFjVGP2U4t1dSm8ly3CoqdTLBkvYEtw9vEHNFyusGzkVmTifgZ9bVaUBHLVqxRqml8qFQn+XHDWJLwVw6C1czcFmQCYq84upNeKsyRvq11uP8v8ie4CbJSHpTzYftwWkuqzNnn7npgDosf7TAhJivq+e87TZb4=
