@@ -20,6 +20,7 @@ install:
 
 before_script:
 - composer run-script post-create-project-cmd
+- sed -i "s/__DB_HOST__/localhost/g;s/__DB_NAME__/testdb/g;s/__DB_USER__/root/g;s/__DB_PASS__//g" app/config/app.php
 - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS testdb;'
 
 script:

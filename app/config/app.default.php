@@ -38,12 +38,12 @@ return [
                 'cache' => null,
             ],
             'connection' => [
-                'driver' => 'pdo_mysql',
-                'host' => 'localhost',
-                'dbname' => 'testdb',
-                'user' => 'root',
-                'password' => '',
-            ]
+                'driver'   => 'pdo_mysql',
+                'host'     => '__DB_HOST__',
+                'dbname'   => '__DB_NAME__',
+                'user'     => '__DB_USER__',
+                'password' => '__DB_PASS__',
+            ],
         ],
     ],
 ];

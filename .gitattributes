@@ -42,14 +42,12 @@
 *.woff2 binary
 
 # Exclude unused files
-#/tests              export-ignore
-#/.gitattributes     export-ignore
-#/.gitignore         export-ignore
-#/.travis.yml        export-ignore
-#/phpunit.xml.dist   export-ignore
-#/phpunit.xml        export-ignore
-#/phpcs.xml.dist     export-ignore
-#/phpcs.xml          export-ignore
-#/deploy.php.dist    export-ignore
-#/deploy.php         export-ignore
-#/CHANGELOG.md       export-ignore
+/tests              export-ignore
+/.gitattributes     export-ignore
+/.gitignore         export-ignore
+/.travis.yml        export-ignore
+/.gitlab-ci.yml     export-ignore
+/phpunit.xml.dist   export-ignore
+/phpcs.xml.dist     export-ignore
+/deploy.php.dist    export-ignore
+/CHANGELOG.md       export-ignore

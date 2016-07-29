@@ -39,7 +39,7 @@ class Scripts
      * @param Event $event The composer event object.
      * @return void
      */
-    public static function postCreateProject(Event $event)
+    public static function postCreateProjectCmd(Event $event)
     {
         $io = $event->getIO();
         $rootDir = dirname(dirname(__DIR__));
@@ -173,17 +173,5 @@ class Scripts
         }
 
         return $changedDirs;
-    }
-
-    /**
-     *
-     * @param type $cmd
-     * @return type
-     */
-    protected function runCommand($cmd)
-    {
-        exec(escapeshellcmd($cmd), $output, $code);
-
-        return [$code, $output];
     }
 }

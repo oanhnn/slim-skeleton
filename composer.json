@@ -48,7 +48,7 @@
   },
   "scripts": {
     "post-create-project-cmd": [
-      "App\\Console\\Scripts::postCreateProject"
+      "App\\Console\\Scripts::postCreateProjectCmd"
     ],
     "test": [
       "./vendor/bin/phpcs",
