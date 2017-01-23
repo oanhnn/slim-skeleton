@@ -22,7 +22,7 @@
     }
   },
   "require": {
-    "php": ">=5.5.0",
+    "php": ">=5.6.0",
     "monolog/monolog": "~1.13",
     "slim/slim": "~3.0",
     "slim/php-view": "^2.0",
@@ -30,7 +30,7 @@
     "doctrine/dbal": "^2.5"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.8",
+    "phpunit/phpunit": "~5.7",
     "squizlabs/php_codesniffer": "*"
   },
   "suggest": {
@@ -56,7 +56,7 @@
     ],
     "deploy": "./vendor/bin/dep deploy",
     "install-gulp": "npm install",
-    "install-deployer": "@composer require deployer/deployer:^3.3 --dev",
+    "install-deployer": "@composer require deployer/deployer:^4.1 --dev",
     "gulp-run": "node_modules/.bin/gulp",
     "server": "php -S 0.0.0.0:8888 -t public public/index.php > /dev/null 2>&1 &"
   }
