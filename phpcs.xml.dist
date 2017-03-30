@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ruleset name="Slim application coding standard">
     <description>Slim application coding standard</description>
-    <!-- Paths to check -->
-    <file>src</file>
-    <file>tests</file>
-    <!--<file>app/config</file>-->
 
     <!-- display progress -->
     <arg value="p"/>
@@ -13,7 +9,48 @@
 
     <!-- inherit rules from: -->
     <rule ref="PSR2"/>
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
     <!--<rule ref="Squiz.Commenting.FileComment"/>-->
-    <rule ref="Generic.Commenting.Todo" />
+    <!--<rule ref="Generic.Commenting.Todo" />-->
+
+    <!-- The soft limit on line length MUST be 120 characters;
+    automated style checkers MUST warn but MUST NOT error at the soft limit. -->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="0"/>
+        </properties>
+    </rule>
+
+    <!-- The closing ?> tag MUST be omitted from files containing only PHP. -->
+    <rule ref="Zend.Files.ClosingTag"/>
+
+    <!-- All PHP files MUST use the Unix LF (linefeed) line ending. -->
+    <rule ref="Generic.Files.LineEndings">
+        <properties>
+            <property name="eolChar" value="\n"/>
+        </properties>
+    </rule>
+
+    <rule ref="PSR1.Classes.ClassDeclaration">
+        <exclude-pattern>app/config/*</exclude-pattern>
+        <exclude-pattern>app/database/*</exclude-pattern>
+        <exclude-pattern>tests/bootstrap.php</exclude-pattern>
+    </rule>
+
+    <rule ref="PSR1.Files.SideEffects">
+        <exclude-pattern>app/config/*</exclude-pattern>
+        <exclude-pattern>app/database/*</exclude-pattern>
+        <exclude-pattern>tests/bootstrap.php</exclude-pattern>
+    </rule>
+
+    <!-- Paths to check -->
+    <file>app</file>
+    <file>src</file>
+    <file>tests</file>
+
+    <exclude-pattern>*\.(?!php$)</exclude-pattern>
+    <exclude-pattern>*.blade.php</exclude-pattern>
+    <exclude-pattern>*.twig.php</exclude-pattern>
 </ruleset>

@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-defined('APP_PATH')  || define('APP_PATH',  dirname(__DIR__));
+defined('APP_PATH')  || define('APP_PATH', dirname(__DIR__));
 defined('ROOT_PATH') || define('ROOT_PATH', dirname(APP_PATH));
-defined('TMP_PATH')  || define('TMP_PATH',  ROOT_PATH . '/tmp');
-defined('LOG_PATH')  || define('LOG_PATH',  ROOT_PATH . '/tmp/logs');
-defined('CACHE_PATH')|| define('CACHE_PATH',ROOT_PATH . '/tmp/cache');
+defined('TMP_PATH')  || define('TMP_PATH', ROOT_PATH . '/tmp');
+defined('LOG_PATH')  || define('LOG_PATH', ROOT_PATH . '/tmp/logs');
+defined('CACHE_PATH')|| define('CACHE_PATH', ROOT_PATH . '/tmp/cache');
 defined('VIEW_PATH') || define('VIEW_PATH', ROOT_PATH . '/app/templates');
 
 // Load all class

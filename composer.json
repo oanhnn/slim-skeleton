@@ -2,7 +2,7 @@
   "name": "oanhnn/slim-skeleton",
   "type": "application",
   "description": "A skeleton for Slim framework",
-  "keyworks": ["skeleton", "Slim framework", "micro framework", "Slim", "API", "REST", "RESTful"],
+  "keyworks": ["skeleton", "Slim framework", "Slim", "API", "REST", "RESTful"],
   "license": "MIT",
   "homepage": "https://github.com/oanhnn/slim-skeleton",
   "support": {
@@ -47,17 +47,15 @@
     "preferred-install": "dist"
   },
   "scripts": {
+    "phpunit": "php vendor/phpunit/phpunit/phpunit",
+    "phpcs": "php vendor/squizlabs/php_codesniffer/scripts/phpcs",
+    "phpcbf": "php vendor/squizlabs/php_codesniffer/scripts/phpcbf",
     "post-create-project-cmd": [
       "App\\Console\\Scripts::postCreateProjectCmd"
     ],
     "test": [
-      "./vendor/bin/phpcs",
-      "./vendor/bin/phpunit"
-    ],
-    "deploy": "./vendor/bin/dep deploy",
-    "install-gulp": "npm install",
-    "install-deployer": "@composer require deployer/deployer:^3.3 --dev",
-    "gulp-run": "node_modules/.bin/gulp",
-    "server": "php -S 0.0.0.0:8888 -t public public/index.php > /dev/null 2>&1 &"
+      "@composer run-script phpcs",
+      "@composer run-script phpunit"
+    ]
   }
 }

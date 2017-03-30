@@ -19,5 +19,5 @@ server('dev-svr', '10.10.10.10', 22)
     ->forwardAgent()
     ->stage(['dev'])
     ->env('deploy_path', '/var/www/apps/app-name')
-    ->env('branch', '3.x')
+    ->env('branch', 'master')
 ;
