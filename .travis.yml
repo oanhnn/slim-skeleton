@@ -1,34 +1,39 @@
 language: php
 
+git:
+  depth: 1
+
 php:
-- 5.5
-- 5.6
-- 7.0
-- 7.1
-- hhvm
+  - 5.6
+  - 7.0
+  - 7.1
+  - hhvm
 
-sudo: false
+sudo: required
 
-addons:
-  mariadb: '10.1'
+service:
+  - mysql
 
 before_install:
-- composer self-update
+  - composer self-update
+  - curl -sL https://deb.nodesource.com/setup_6.x | sudo bash -
+  - sudo apt-get update && sudo apt-get install -y nodejs
 
 install:
 - composer install
-- composer require satooshi/php-coveralls '~1.0'
+- npm install
 
 before_script:
 - composer run-script post-create-project-cmd
-- sed -i "s/__DB_HOST__/localhost/g;s/__DB_NAME__/testdb/g;s/__DB_USER__/root/g;s/__DB_PASS__//g" app/config/app.php
 - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS testdb;'
 
 script:
 - php vendor/bin/phpcs
 - php vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+- npm run production
 
 after_script:
+- composer require satooshi/php-coveralls '~1.0'
 - php vendor/bin/coveralls -v
 
 notifications:

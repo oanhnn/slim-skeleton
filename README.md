@@ -41,7 +41,7 @@ path/to/project
 Requirements
 ---
 
-* PHP 5.5+
+* PHP 5.6+
 * [Composer][compoer]
 * [npm][npm] (If using Laravel Mix to build assets)
 
