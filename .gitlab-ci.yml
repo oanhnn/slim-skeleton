@@ -20,17 +20,15 @@ variables:
 
 # Install dependencies
 before_script:
-  - curl -sL https://deb.nodesource.com/setup_6.x | bash -
   # Install php extensions
   - apt-get update -y
-  - apt-get install -y git libicu-dev libcurl4-openssl-dev libmcrypt-dev zlib1g-dev nodejs
+  - apt-get install -y git libicu-dev libcurl4-openssl-dev libmcrypt-dev zlib1g-dev
   - docker-php-ext-install iconv intl curl mbstring mcrypt pdo_mysql zip
   - apt-get autoremove -y && apt-get clean all
   # Install composer
   - curl -sS https://getcomposer.org/installer | php
   - php composer.phar install
   - php composer.phar run-script post-create-project-cmd
-  - npm install
 
 # We test PHP5.5 (the default) with MySQL
 test:php55:
@@ -44,7 +42,6 @@ test:php56:
   script:
     - php vendor/bin/phpcs
     - php vendor/bin/phpunit
-    - npm run production
 
 # We test PHP7.0 with MySQL
 test:php70:
@@ -52,7 +49,6 @@ test:php70:
   script:
     - php vendor/bin/phpcs
     - php vendor/bin/phpunit
-    - npm run production
 
 # We test PHP7.1 with MySQL
 test:php71:
@@ -60,4 +56,3 @@ test:php71:
   script:
     - php vendor/bin/phpcs
     - php vendor/bin/phpunit
-    - npm run production
