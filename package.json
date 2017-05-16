@@ -3,7 +3,9 @@
     "normalize.css": "3.0.3"
   },
   "devDependencies": {
-    "laravel-mix": "^0.9.2"
+    "laravel-mix": "^0.9.2",
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.3.2"
   },
   "private": true,
   "scripts": {

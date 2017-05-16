@@ -12,8 +12,11 @@ let mix = require('laravel-mix');
  */
 
 mix.disableNotifications()
-    .js('app/assets/js/app.js', 'public/js/')
-    .sass('app/assets/css/app.scss', 'public/css/')
+    .setPublicPath('public/')
+    .js('app/assets/js/app.js', 'js/')
+    .sass('app/assets/css/app.scss', 'css/')
+    .js('app/assets/js/hello.ts', 'js/')
+    .version()
 ;
 
 // Full API

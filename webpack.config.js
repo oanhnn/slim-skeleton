@@ -189,6 +189,12 @@ let rules = [
             name: '[name].[ext]?[hash]',
             publicPath: Mix.options.resourceRoot
         }
+    },
+
+    {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
     }
 ];
 
@@ -200,7 +206,7 @@ if (Mix.preprocessors) {
     });
 }
 
-module.exports.module = { rules }
+module.exports.module = { rules };
 
 
 
@@ -216,8 +222,7 @@ module.exports.module = { rules }
  */
 
 module.exports.resolve = {
-    extensions: ['*', '.js', '.jsx', '.vue'],
-
+    extensions: ['*', '.js', '.jsx', '.vue', '.ts', '.tsx'],
     alias: {
         'vue$': 'vue/dist/vue.common.js'
     }
@@ -374,7 +379,7 @@ if (Mix.options.purifyCss) {
     let PurifyCSSPlugin = require('purifycss-webpack');
 
     // By default, we'll scan all Blade and Vue files in our project.
-    let paths = glob.sync(Mix.Paths.root('app/templates/**/*.blade.php')).concat(
+    let paths = glob.sync(Mix.Paths.root('app/templates/**/*.html.php')).concat(
         Mix.js.reduce((carry, js) => {
             return carry.concat(glob.sync(js.entry.map(entry => entry.base) + '/**/*.vue'));
         }, [])

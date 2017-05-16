@@ -2,10 +2,10 @@
 #################################################
 /app/config/app.php
 /deploy.php
-/mix-manifest.json
 /node_modules
 /phpunit.xml
 /phpcs.xml
+/public/mix-manifest.json
 /tmp/build
 /vendor
 
