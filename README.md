@@ -1,6 +1,6 @@
 Slim Skeleton
 ===
-[![Build Status](https://travis-ci.org/oanhnn/slim-skeleton.svg?branch=3.x)](https://travis-ci.org/oanhnn/slim-skeleton)
+[![Build Status](https://travis-ci.org/oanhnn/slim-skeleton.svg?branch=master)](https://travis-ci.org/oanhnn/slim-skeleton)
 [![Latest Stable Version](https://poser.pugx.org/oanhnn/slim-skeleton/v/stable)](https://packagist.org/packages/oanhnn/slim-skeleton)
 [![Total Downloads](https://poser.pugx.org/oanhnn/slim-skeleton/downloads)](https://packagist.org/packages/oanhnn/slim-skeleton)
 [![License](https://poser.pugx.org/oanhnn/slim-skeleton/license)](https://packagist.org/packages/oanhnn/slim-skeleton)
@@ -17,9 +17,9 @@ Main features
 - [x] Support middlewares: Basic & Digest Authentication
 - [x] Support providers, easy to integrate with `slim/http-cache`, `slim/csrf`, `slim/flash`
 - [x] Support making database test and integration test with [PHPUnit][phpunit]
-- [x] Support coding style check with [PHPCS][phpcs]
+- [x] Support coding style check and fix with [PHPCS][phpcs]
 - [x] Support auto deploy with [Deployer][deployer]
-- [x] Support using [Gulp][gulp] task to compile SASS, ES6, CoffeeScript, ...
+- [x] Support using [Laravel Mix][laravelmix] to build and manage assets (js, jsx, css, sass, ...)
 
 #### Directories structure
 ```
@@ -41,9 +41,9 @@ path/to/project
 Requirements
 ---
 
-* PHP 5.5+
+* PHP 5.6+
 * [Composer][compoer]
-* [npm][npm] (If using gulp to build assets)
+* [npm][npm] (If using Laravel Mix to build assets)
 
 Usage
 ---
@@ -55,32 +55,32 @@ Using `composer` to create new project:
 $ composer create-project oanhnn/slim-skeleton path/to/project --prefer-dist
 ```
 
-#### Run PHP built-in server
-Run a built-in server on 0.0.0.0:8888
+#### Check coding style and fix
 ```shell
-$ php -S 0.0.0.0:8888 -t public public/index.php
+$ composer phpcs
+$ composer phpcbf
 ```
 
-Open web browser with address http://localhost:8888
-
-#### Check coding style and test
+#### Run phpunit test
 ```shell
-$ ./vendor/bin/phpcs
-$ ./vendor/bin/phpunit
+$ composer phpunit
 ```
 
-#### Build assets with gulp, npm
-You can use Gulp to compile SASS, ES6, CoffeeScript, ...
+Or check coding style and run phpunit
+
+```shell
+$ composer test
+```
+
+#### Build assets with Laravel Mix
+You can use Laravel to build SASS, LESS, ES6, ...
 
 ```shell
 $ npm install
-$ npm run-script build
+$ npm run dev
 ```
 
-#### Run a task with gulp
-```shell
-$ node_modules/.bin/gulp <task>
-```
+The more documents can be found in [Laravel Mix][laravelmix] project page
 
 #### Deploy project
 You can use Deployer to deploy project.   
@@ -112,7 +112,7 @@ If you would like to help take a look at the [list of issues](issues).
 License
 ---
 This project is released under the MIT License.   
-Copyright © 2013-2016 Oanh Nguyen.   
+Copyright © 2013-2017 Oanh Nguyen.   
 Please see [License File](LICENSE.md) for more information.
 
 
@@ -128,4 +128,4 @@ Please see [License File](LICENSE.md) for more information.
 [deployer]:  https://deployer.org
 [deploy-ex]: https://github.com/oanhnn/deployer-example
 [slim-fw]:   http://slimframework.com/
-[gulp]:      http://gulpjs.com/
+[laravelmix]:https://github.com/JeffreyWay/laravel-mix/tree/master/docs#readme

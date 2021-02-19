@@ -49,16 +49,6 @@ class Scripts
         static::setSecuritySalt($rootDir, $io);
     }
 
-//    public static function doTest();
-//    public static function deploy();
-//    public static function startServer();
-//    public static function stopServer();
-//
-//    public static function runUnitTest();
-//    public static function checkCodingStyle();
-//    public static function installGulp();
-//    public static function installDeployer();
-
     /**
      * Create the application's config file if it does not exist.
      *

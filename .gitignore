@@ -2,11 +2,12 @@
 #################################################
 /app/config/app.php
 /deploy.php
+/node_modules
 /phpunit.xml
 /phpcs.xml
-/vendor
-/node_modules
+/public/mix-manifest.json
 /tmp/build
+/vendor
 
 # IDE and editor specific files #
 #################################

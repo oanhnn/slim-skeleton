@@ -12,24 +12,23 @@ services:
 
 # Variables
 variables:
+  GIT_STRATEGY: clone
+  GIT_DEPTH: "1"
   # Configure mysql service https://hub.docker.com/_/mysql/
   MYSQL_DATABASE: "testdb"
-  MYSQL_ROOT_PASSWORD: "rootpass"
+  MYSQL_ALLOW_EMPTY_PASSWORD: yes
 
 # Install dependencies
 before_script:
-  # Install git, the php image doesn't have installed
-  - apt-get update -y
-  - apt-get install -y git libicu-dev libcurl4-openssl-dev libmcrypt-dev zlib1g-dev zip unzip
   # Install php extensions
-  - docker-php-ext-install pdo_mysql mbstring intl curl mcrypt zip
+  - apt-get update -y
+  - apt-get install -y git libicu-dev libcurl4-openssl-dev libmcrypt-dev zlib1g-dev
+  - docker-php-ext-install iconv intl curl mbstring mcrypt pdo_mysql zip
   - apt-get autoremove -y && apt-get clean all
   # Install composer
   - curl -sS https://getcomposer.org/installer | php
   - php composer.phar install
   - php composer.phar run-script post-create-project-cmd
-  # Set mysql connection parameters
-  - sed -i "s/__DB_HOST__/mysql/g;s/__DB_NAME__/testdb/g;s/__DB_USER__/root/g;s/__DB_PASS__/rootpass/g" app/config/app.php
 
 # We test PHP5.5 (the default) with MySQL
 test:php55:
@@ -37,17 +36,23 @@ test:php55:
     - php vendor/bin/phpcs
     - php vendor/bin/phpunit
 
-# We test PHP5.5 (the default) with MySQL
+# We test PHP5.6 with MySQL
 test:php56:
   image: php:5.6
   script:
     - php vendor/bin/phpcs
     - php vendor/bin/phpunit
 
-# We test PHP7 with MySQL, but we allow it to fail
-test:php7:
-  image: php:7
+# We test PHP7.0 with MySQL
+test:php70:
+  image: php:7.0
   script:
     - php vendor/bin/phpcs
     - php vendor/bin/phpunit
-  allow_failure: true
+
+# We test PHP7.1 with MySQL
+test:php71:
+  image: php:7.1
+  script:
+    - php vendor/bin/phpcs
+    - php vendor/bin/phpunit
