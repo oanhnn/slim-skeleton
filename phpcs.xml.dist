@@ -1,19 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ruleset name="Slim application coding standard">
-    <description>Slim application coding standard</description>
-    <!-- Paths to check -->
-    <file>src</file>
-    <file>tests</file>
-    <!--<file>app/config</file>-->
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="My coding standard">
+    <description>My coding standard</description>
 
     <!-- display progress -->
     <arg value="p"/>
     <!-- use colors in output -->
     <arg name="colors"/>
 
-    <!-- inherit rules from: -->
-    <rule ref="PSR2"/>
+    <!-- Inherit rules from: PSR2-->
+    <rule ref="PSR12"/>
+
+    <!-- Disallow use long array syntax -->
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
-    <!--<rule ref="Squiz.Commenting.FileComment"/>-->
-    <rule ref="Generic.Commenting.Todo" />
+
+    <!-- Required fix all TODO and FIXME markers -->
+    <!--<rule ref="Generic.Commenting.Fixme" />-->
+    <!--<rule ref="Generic.Commenting.Todo" />-->
+
+    <!-- Disallow use deprecated functions -->
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+
+    <!-- MUST comment if method or function has exception -->
+    <rule ref="Squiz.Commenting.FunctionCommentThrowTag"/>
+
+    <!-- Add space to before and after operator -->
+    <rule ref="Squiz.WhiteSpace.OperatorSpacing"/>
+
+    <!-- The closing ?> tag MUST be omitted from files containing only PHP. -->
+    <rule ref="Zend.Files.ClosingTag"/>
+
+    <!-- Exclude some PHP files, it haven't class definitions -->
+    <rule ref="PSR1.Classes.ClassDeclaration">
+        <exclude-pattern>tests/TestCase.php</exclude-pattern>
+        <exclude-pattern>database/*</exclude-pattern>
+    </rule>
+
+    <rule ref="PSR1.Methods.CamelCapsMethodName">
+        <exclude-pattern>tests/Feature/*Test.php</exclude-pattern>
+        <exclude-pattern>tests/Unit/*Test.php</exclude-pattern>
+    </rule>
+
+    <!-- Exclude some PHP config files -->
+    <rule ref="PSR1.Files.SideEffects">
+        <exclude-pattern>bootstrap/*</exclude-pattern>
+        <exclude-pattern>config/*</exclude-pattern>
+        <exclude-pattern>database/factories/*</exclude-pattern>
+    </rule>
+
+    <!-- The soft limit on line length MUST be 120 characters;
+    automated style checkers MUST warn but MUST NOT error at the soft limit. -->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="0"/>
+        </properties>
+    </rule>
+
+    <!-- Paths to check -->
+    <file>app</file>
+    <file>bootstrap</file>
+    <file>config</file>
+    <file>database</file>
+    <file>tests</file>
+
+    <exclude-pattern>*.blade.php</exclude-pattern>
+    <exclude-pattern>bootstrap/cache</exclude-pattern>
 </ruleset>

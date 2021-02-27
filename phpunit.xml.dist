@@ -1,36 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
-<phpunit
-    colors="true"
-    processIsolation="false"
-    convertErrorsToExceptions="true"
-    convertNoticesToExceptions="true"
-    convertWarningsToExceptions="true"
-    stopOnError="false"
-    stopOnFailure="false"
-    syntaxCheck="true"
-    verbose="true"
-    bootstrap="tests/bootstrap.php"
->
-    <php>
-        <ini name="memory_limit" value="-1"/>
-        <ini name="apc.enable_cli" value="1"/>
-    </php>
-
-    <!-- Add any additional test suites you want to run here -->
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         bootstrap="tests/autoload.php"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false">
     <testsuites>
-        <testsuite name="Test Source">
-            <directory>tests</directory>
+        <testsuite name="Feature Tests">
+            <directory suffix="Test.php">tests/Feature</directory>
+        </testsuite>
+
+        <testsuite name="Unit Tests">
+            <directory suffix="Test.php">tests/Unit</directory>
         </testsuite>
     </testsuites>
-
-    <!-- Ignore vendor tests in code coverage reports -->
     <filter>
-        <blacklist>
-            <directory suffix=".php">vendor</directory>
-            <directory>bin</directory>
-        </blacklist>
-        <whitelist>
+        <whitelist processUncoveredFilesFromWhitelist="false">
             <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
+    <php>
+        <server name="APP_ENV" value="testing"/>
+    </php>
 </phpunit>

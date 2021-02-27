@@ -27,6 +27,8 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * Get Slim application instance
+     *
+     * @return \Slim\App
      */
     protected static function getApp()
     {

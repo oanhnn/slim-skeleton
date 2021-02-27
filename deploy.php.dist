@@ -18,6 +18,6 @@ server('dev-svr', '10.10.10.10', 22)
     ->user('vagrant')
     ->forwardAgent()
     ->stage(['dev'])
-    ->env('deploy_path', '/var/www/apps/app-name')
-    ->env('branch', '3.x')
+    ->set('deploy_path', '/var/www/apps/app-name')
+    ->set('branch', '3.x')
 ;

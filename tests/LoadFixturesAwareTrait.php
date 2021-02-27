@@ -19,6 +19,7 @@ trait LoadFixturesAwareTrait
      */
     protected function loadFixtures($tables = [])
     {
+        /** @var \Doctrine\DBAL\Connection $connection */
         $connection = self::getApp()->getContainer()->get('database');
         if (empty($connection)) {
             throw new \RuntimeException('DoctrineDBALServiceProvider registration required');

@@ -1,0 +1,38 @@
+version: "3.5"
+
+networks:
+  default: {}
+
+services:
+  web:
+    image: nginx:stable-alpine
+    depends_on:
+      - php
+    networks:
+      - default
+    ports:
+      - 80:80
+    restart: unless-stopped
+    volumes:
+      - .docker/nginx/vhost.conf:/etc/nginx/templates/default.conf.template:ro
+    healthcheck:
+      test: curl --fail --silent --user-agent 'ELB-HealthChecker/2'  http://`hostname -i`:80 || exit 1
+      start_period: 2s
+      interval: 1s
+      timeout: 3s
+      retries: 10
+
+  app:
+    image: oanhnn/php:7.3-fpm-alpine
+    working_dir: /app
+    # image: oanhnn/example-slim
+    # build:
+    #   context: .
+    #   dockerfile: ./docker/php/Dockerfile
+    environment:
+      - LOG_CHANNEL=stderr
+    networks:
+      - default
+    restart: unless-stopped
+    volumes:
+      - .:/app

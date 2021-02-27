@@ -1,18 +1,28 @@
 # User specific & automatically generated files #
 #################################################
-/app/config/app.php
-/deploy.php
-/node_modules
-/phpunit.xml
-/phpcs.xml
-/public/mix-manifest.json
-/tmp/build
-/vendor
+.git
+.gitignore
+.travis.yml
+.github
+.gitlab
+*.log
+docs
+node_modules
+npm-debug.log
+storage/*.key
+storage/cache/*
+storage/log
+yarn-error.log
+CHANGLELOG.md
+README.md
 
 # IDE and editor specific files #
 #################################
-/nbproject
-/.idea
+nbproject
+.idea
+.phpstorm.meta.php
+.vscode
+_ide_helper.php
 
 # OS generated files #
 ######################
@@ -24,4 +34,3 @@
 Icon?
 ehthumbs.db
 Thumbs.db
-*.mo
