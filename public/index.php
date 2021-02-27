@@ -1,12 +1,10 @@
 <?php
-/**
- * This file is part of `oanhnn/slim-skeleton` project.
- *
- * (c) Oanh Nguyen <oanhnn.bk@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE.md
- * file that was distributed with this source code.
- */
+
+use App\Providers\Psr7ServiceProvider;
+use App\Providers\SlimServiceProvider;
+use League\Container\Container;
+use League\Container\ReflectionContainer;
+use Psr\Container\ContainerInterface;
 
 /**
  * Config built-in web server.
@@ -22,20 +20,30 @@ if (php_sapi_name() === 'cli-server') {
 }
 
 /**
- * For debug mode only
- * Please comment two lines if not debug mode
- */
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-/**
  * Defines constants
  */
 define('ROOT_PATH', dirname(__DIR__));
 
 /**
+ * Autoload classes
+ */
+require_once ROOT_PATH . '/vendor/autoload.php';
+
+/**
+ * Make container
+ */
+$container = new Container();
+$container->delegate((new ReflectionContainer())->cacheResolutions(true));
+$container->share(ContainerInterface::class, $container);
+
+/**
+ * Add service providers
+ */
+$container->addServiceProvider(Psr7ServiceProvider::class);
+$container->addServiceProvider(SlimServiceProvider::class);
+$container->addServiceProvider(LogServiceProvider::class);
+
+/**
  * Run application.
  */
-/* @var $app \Slim\App */
-$app = require_once ROOT_PATH . '/app/config/bootstrap.php';
-$app->run();
+$container->get(\Slim\App::class)->run();

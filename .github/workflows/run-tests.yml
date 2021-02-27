@@ -1,0 +1,80 @@
+name: ci
+
+on: [push, pull_request]
+
+jobs:
+  run-tests:
+    name: '[PHP] Test with PHP${{ matrix.php }}'
+    strategy:
+      matrix:
+        php:
+          - 7.3
+          - 7.4
+    runs-on: ubuntu-20.04
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: rootpass
+          MYSQL_USER:          dev
+          MYSQL_PASSWORD:      devpass
+          MYSQL_DATABASE:      laravel
+        ports:
+          - 3306/tcp
+      redis:
+        image: redis:alpine
+        ports:
+          - 6379/tcp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setting up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, dom, json, mbstring
+          tools: composer
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Install dependencies with composer
+        run: composer install --no-ansi --no-interaction --no-progress --no-suggest --no-scripts
+      - name: Create .env file
+        run: |
+          cp .env.example .env
+          sed -i "s|^DB_USERNAME=.*|DB_USERNAME=dev|g" .env
+          sed -i "s|^DB_PASSWORD=.*|DB_PASSWORD=devpass|g" .env
+          sed -i "s|^DB_DATABASE=.*|DB_DATABASE=laravel|g" .env
+          sed -i "s|^REDIS_PASSWORD=.*|REDIS_PASSWORD=null|g" .env
+          php artisan key:generate
+      - name: Run PHPUnit
+        run: php artisan test
+
+  build-assets:
+    name: '[Node] Build assets'
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setting up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.OS }}-node-
+      - name: Install dependencies with npm
+        run: npm ci
+      - name: Check coding style
+        run: npm run lint
+      - name: Build assets
+        run: npm run production

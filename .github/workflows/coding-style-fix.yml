@@ -1,0 +1,26 @@
+name: Check & fix coding style
+
+on: [push, pull_request]
+
+jobs:
+  fix-coding-style:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Setting up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          tools: phpcs
+
+      - name: Fix coding style
+        run: phpcbf --standard=phpcs.xml.dist
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Fix coding style

@@ -1,16 +1,8 @@
 <?php
-/**
- * This file is part of `oanhnn/slim-skeleton` project.
- *
- * (c) Oanh Nguyen <oanhnn.bk@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE.md
- * file that was distributed with this source code.
- */
 
 namespace App\Model\Entity;
 
-use Doctrine\Common\Util\Inflector;
+use App\Utility\Inflector;
 
 /**
  * Base model entity

@@ -6,6 +6,6 @@
     "sourceMap": false
   },
   "include": [
-    "app/assets/js/**/*"
+    "resources/assets/js/**/*"
   ]
 }

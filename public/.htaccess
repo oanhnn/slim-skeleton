@@ -13,8 +13,8 @@ Options -Indexes
 # Setting Basic Auth to protected directory
 #AuthName "Please enter your ID and password"
 #AuthType Basic
-#AuthUserFile "../app/config/.htpasswd"
-#AuthGroupFile "../app/config/.htgroup"
+#AuthUserFile "../config/.htpasswd"
+#AuthGroupFile "../config/.htgroup"
 #Require valid-user
 #Order Deny,Allow
 
